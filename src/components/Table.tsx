@@ -1,5 +1,5 @@
 import React from 'react';
-import ColumnTitle from './ColumnTitle';
+import Column from './Column';
 import Row from './Row';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -47,7 +47,7 @@ class Table extends React.Component {
         <thead>
           <tr>
             {columns.map((column, index) => (
-              <ColumnTitle
+              <Column
                 key={column.id}
                 index={index}
                 title={column.title}
@@ -56,7 +56,7 @@ class Table extends React.Component {
                 handleClick={this.handleSortColumn}
               />
             ))}
-            <ColumnTitle
+            <Column
               key={uuidv4()}
               lastColumn={true}
               title={'maciek'}

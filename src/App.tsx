@@ -1,13 +1,13 @@
 import React from 'react';
 import Table from './components/Table';
-import './App.css';
+import { Container } from './components/styled/Container';
 
 function App() {
   return (
     <div className="App">
-      <div className="container">
+      <Container>
         <Table />
-      </div>
+      </Container>
     </div>
   );
 }

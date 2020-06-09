@@ -1,6 +1,8 @@
 import React from 'react';
 import Column from './Column';
 import Row from './Row';
+import { StyledTable } from './styled/StyledTable';
+import { TR } from './styled/TR';
 import { v4 as uuidv4 } from 'uuid';
 
 class Table extends React.Component {
@@ -43,9 +45,9 @@ class Table extends React.Component {
     const columns = this.state.columns;
     const rows = this.state.data;
     return (
-      <table>
+      <StyledTable>
         <thead>
-          <tr>
+          <TR>
             {columns.map((column, index) => (
               <Column
                 key={column.id}
@@ -62,14 +64,14 @@ class Table extends React.Component {
               title={'maciek'}
               handleClick={this.handleSortColumn}
             />
-          </tr>
+          </TR>
         </thead>
         <tbody>
           {rows.map((row) => (
             <Row key={row.id} row={row.row} />
           ))}
         </tbody>
-      </table>
+      </StyledTable>
     );
   }
 }

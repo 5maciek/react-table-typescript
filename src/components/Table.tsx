@@ -13,16 +13,15 @@ class Table extends React.Component {
       { id: uuidv4(), title: 'Header content 3', width: 200 },
     ],
     data: [
-      { id: uuidv4(), row: ['value 1', 2, 5] },
+      { id: uuidv4(), row: ['value 1', 2] },
       { id: uuidv4(), row: ['value 3', 1, 33] },
       { id: uuidv4(), row: ['value 2', 3, 2] },
     ],
   };
 
   handleSortColumn = (index: any) => {
-    //console.log(index);
     const rows = this.state.data;
-    const sortedValue = rows.sort(function (a, b) {
+    const sortedValues = rows.sort(function (a, b) {
       if (a.row[index] < b.row[index]) {
         return -1;
       }
@@ -31,13 +30,8 @@ class Table extends React.Component {
       }
       return 0;
     });
-
-    const sorting = rows.sort();
-
-    //const sortedValue = rows.sort((a:Maciek ,b:Maciek) => `${a.row[index].toString()}` as any - (`${b.row[index].toString()}` as any));
-
     this.setState({
-      data: sorting,
+      data: sortedValues,
     });
   };
 
@@ -61,14 +55,18 @@ class Table extends React.Component {
             <Column
               key={uuidv4()}
               lastColumn={true}
-              title={'maciek'}
+              title={'Total'}
               handleClick={this.handleSortColumn}
             />
           </TR>
         </thead>
         <tbody>
           {rows.map((row) => (
-            <Row key={row.id} row={row.row} />
+            <Row
+              key={row.id}
+              row={row.row}
+              countColumns={this.state.columns.length}
+            />
           ))}
         </tbody>
       </StyledTable>

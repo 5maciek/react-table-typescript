@@ -29,18 +29,58 @@ class Table extends React.Component {
 
   handleSortColumn = (index: any) => {
     const rows = this.state.data;
-    const sortedValues = rows.sort(function (a, b) {      
-      if (a.row[index] < b.row[index]) {        
-        return -1;
+    const columns = this.state.columns;
+    if (index !== undefined) {
+      let sort = columns[index].sorted;
+      let sortedIcons: any = [];
+      let sortedRows: any = [];
+      if (sort === null || sort === 'desc') {
+        sortedRows = rows.sort(function (a, b) {
+          if (a.row[index] < b.row[index]) {
+            return -1;
+          }
+          if (a.row[index] > b.row[index]) {
+            return 1;
+          }
+          return 0;
+        });
+
+        sortedIcons = columns.map((column: any, i: number) => {
+          if (i === index) return 'asc';
+          else return null;
+        })
       }
-      if (a.row[index] > b.row[index]) {        
-        return 1;
-      }      
-      return 0;
-    });
-    this.setState({
-      data: sortedValues,
-    });
+      else {
+        sortedRows = rows.sort(function (a, b) {
+          if (a.row[index] < b.row[index]) {
+            return 1;
+          }
+          if (a.row[index] > b.row[index]) {
+            return -1;
+          }
+          return 0;
+        });
+
+        sortedIcons = columns.map((column: any, i: number) => {
+          if (i === index) return 'desc';
+          else return null;
+        })
+      }
+
+      const newColumns = this.state.columns.map((column: any, i:any) => {
+        return {
+          id: column.id,
+          title: column.title,
+          width: column.width,
+          sorted: sortedIcons[i]
+        }
+      })
+
+      this.setState({
+        columns: newColumns,
+        data: sortedRows,
+      });
+    }
   };
 
   render() {
@@ -58,6 +98,7 @@ class Table extends React.Component {
                 color={'blue'}
                 width={column.width}
                 handleClick={this.handleSortColumn}
+                sorted={column.sorted}
               />
             ))}
             <Column
@@ -65,6 +106,7 @@ class Table extends React.Component {
               lastColumn={true}
               title={'Total'}
               handleClick={this.handleSortColumn}
+              sorted={null}
             />
           </TR>
         </thead>

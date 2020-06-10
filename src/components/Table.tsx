@@ -8,26 +8,32 @@ import { v4 as uuidv4 } from 'uuid';
 class Table extends React.Component {
   state = {
     columns: [
-      { id: uuidv4(), title: 'Header content 1', width: 150 },
-      { id: uuidv4(), title: 'Header content 2', width: 300 },
+      { id: uuidv4(), title: 'Header content 1', width: 350 },
+      { id: uuidv4(), title: 'Header content 2', width: 200 },
       { id: uuidv4(), title: 'Header content 3', width: 200 },
+      { id: uuidv4(), title: 'Header content 4', width: 300 },
+      { id: uuidv4(), title: 'Header content 5', width: 400 },
+      { id: uuidv4(), title: 'Header content 6', width: 200 },
     ],
     data: [
-      { id: uuidv4(), row: ['value 1', 2] },
-      { id: uuidv4(), row: ['value 3', 1, 33] },
-      { id: uuidv4(), row: ['value 2', 3, 2] },
+      { id: uuidv4(), row: [`Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit aspernatur mollitia magnam inventore. Pariatur, optio distinctio. Aliquam architecto dolore voluptate nostrum quis dolores! Voluptatum ipsam illo repellat est quaerat iure.`, 2, 1, 98.02, 'nohow', 'mno'] },
+      { id: uuidv4(), row: ['value 3', 1, 33, 11.12, 'something', 'abc'] },
+      { id: uuidv4(), row: ['value 2', 3, 2, 34.87, 'anything', 'def'] },
+      { id: uuidv4(), row: ['value 1', 3, 2, 71.12, 'everything', 'xyz'] },
+      { id: uuidv4(), row: ['value 0', 3, 2, 1.18, 'somehow', 'pol'] },
+      { id: uuidv4(), row: ['value 5', 3, 2, 147.54, 'nothing', 'trc'] },
     ],
   };
 
   handleSortColumn = (index: any) => {
     const rows = this.state.data;
-    const sortedValues = rows.sort(function (a, b) {
-      if (a.row[index] < b.row[index]) {
+    const sortedValues = rows.sort(function (a, b) {      
+      if (a.row[index] < b.row[index]) {        
         return -1;
       }
-      if (a.row[index] > b.row[index]) {
+      if (a.row[index] > b.row[index]) {        
         return 1;
-      }
+      }      
       return 0;
     });
     this.setState({

@@ -11,7 +11,7 @@ function Row(props: any) {
       }
       return sum;
     }, 0);
-    return sumtotal;
+    return sumtotal.toFixed(2);
   };
 
   const fillEmpty = () => {    

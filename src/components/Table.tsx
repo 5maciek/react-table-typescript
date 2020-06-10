@@ -6,8 +6,26 @@ import { TR } from './styled/TR';
 import { v4 as uuidv4 } from 'uuid';
 import 'font-awesome/css/font-awesome.min.css';
 
-class Table extends React.Component {
-  state = {
+interface State {
+   columns: ColumnData[];
+   data: RowData[];
+};
+
+interface ColumnData {
+  id: string;
+  title: string;
+  width: number;
+  sorted: string | null;
+}
+
+interface RowData {
+  id: string;
+  row: Array<number | string | null>;
+}
+
+
+class Table extends React.Component <{}, State>{
+  state : State = {
     columns: [
       { id: uuidv4(), title: 'Header content 1', width: 350, sorted: null },
       { id: uuidv4(), title: 'Header content 2', width: 200, sorted: null },
@@ -27,7 +45,7 @@ class Table extends React.Component {
     ],
   };
 
-  handleSortColumn = (index: any) => {
+  handleSortColumn = (index: number | undefined) => {
     const rows = this.state.data;
     const columns = this.state.columns;
     if (index !== undefined) {
@@ -35,7 +53,7 @@ class Table extends React.Component {
       let sortedIcons: any = [];
       let sortedRows: any = [];
       if (sort === null || sort === 'desc') {
-        sortedRows = rows.sort(function (a, b) {
+        sortedRows = rows.sort(function (a : any, b : any) {
           if (a.row[index] < b.row[index]) {
             return -1;
           }
@@ -51,7 +69,7 @@ class Table extends React.Component {
         })
       }
       else {
-        sortedRows = rows.sort(function (a, b) {
+        sortedRows = rows.sort(function (a: any, b:any) {
           if (a.row[index] < b.row[index]) {
             return 1;
           }
@@ -90,28 +108,26 @@ class Table extends React.Component {
       <StyledTable>
         <thead>
           <TR>
-            {columns.map((column, index) => (
+            {columns.map((column : any, index : number) => (
               <Column
                 key={column.id}
                 index={index}
-                title={column.title}
-                color={'blue'}
+                title={column.title}                
                 width={column.width}
                 handleClick={this.handleSortColumn}
-                sorted={column.sorted}
+                sorted={column.sorted}                
               />
             ))}
             <Column
-              key={uuidv4()}
-              lastColumn={true}
-              title={'Total'}
+              key={uuidv4()}              
+              lastColumn={true}              
               handleClick={this.handleSortColumn}
               sorted={null}
             />
           </TR>
         </thead>
         <tbody>
-          {rows.map((row) => (
+          {rows.map((row : any) => (
             <Row
               key={row.id}
               row={row.row}

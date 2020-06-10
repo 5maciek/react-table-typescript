@@ -3,9 +3,14 @@ import { TR } from './styled/TR';
 import { TD } from './styled/TD';
 import { v4 as uuidv4 } from 'uuid';
 
-function Row(props: any) {
+interface Row {
+  countColumns: number;
+  row: Array<number | string | null>
+};
+
+function Row(props: Row) {
   const sumRow = () => {
-    const sumtotal = props.row.reduce((sum: any, val: any, index: any) => {
+    const sumtotal = props.row.reduce((sum: number, val: any, index: number) => {
       if (!isNaN(val) && index < props.countColumns) {
         return sum + val;
       }
@@ -16,7 +21,7 @@ function Row(props: any) {
 
   const fillEmpty = () => {    
     if (props.row.length < props.countColumns) {      
-      const fillArray: any = [];
+      const fillArray: Array<null> = [];
       for (let i = 0; i < (props.countColumns - props.row.length); i++) {
         fillArray.push(null);
       }      
@@ -32,18 +37,18 @@ function Row(props: any) {
     }    
   });
 
-  const arr: any = fillEmpty();  
+  const arr : Array<null> = fillEmpty()!;  
 
   return (
     <TR>
-      {props.row.map((item: any, index: any) =>
+      {props.row.map((row: string | number | null, index: number) =>
         index < props.countColumns ? (
           <TD key={uuidv4()} lastColumn={false}>
-            {item}
+            {row}
           </TD>
         ) : null
       )}    
-      {arr ? arr.map((item:any) => <TD key={uuidv4()} lastColumn={false}>{item}</TD>) : null}
+      {arr ? arr.map((item:null) => <TD key={uuidv4()} lastColumn={false}>{item}</TD>) : null}
       <TD key={uuidv4()} lastColumn={true}>
         {sumRow()}
       </TD>

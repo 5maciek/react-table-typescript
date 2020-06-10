@@ -14,12 +14,12 @@ function Row(props: any) {
     return sumtotal;
   };
 
-  const fillEmpty = () => {
-    if (props.row.length < props.countColumns) {
+  const fillEmpty = () => {    
+    if (props.row.length < props.countColumns) {      
       const fillArray: any = [];
-      for (let i = 0; i < props.row.length - props.countColumns; i++) {
-        fillArray.push('111');
-      }
+      for (let i = 0; i < (props.countColumns - props.row.length); i++) {
+        fillArray.push(null);
+      }      
       return fillArray;
     }
   };
@@ -29,9 +29,11 @@ function Row(props: any) {
       console.log(
         'Some data rows are not displayed because is mismatch with columns.'
       );
-    }
+    }    
   });
-  const arr: any = fillEmpty();
+
+  const arr: any = fillEmpty();  
+
   return (
     <TR>
       {props.row.map((item: any, index: any) =>
@@ -40,10 +42,8 @@ function Row(props: any) {
             {item}
           </TD>
         ) : null
-      )}
-      {arr.map((item: any) => (
-        <td>item</td>
-      ))}
+      )}    
+      {arr ? arr.map((item:any) => <TD key={uuidv4()} lastColumn={false}>{item}</TD>) : null}
       <TD key={uuidv4()} lastColumn={true}>
         {sumRow()}
       </TD>

@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Setup
 
-If you want to run this game locally, enter the following commands in console:
+If you want to run this project locally, enter the following commands in console:
 
 `npm install`
 
